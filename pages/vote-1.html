@@ -15,14 +15,18 @@
         height: 100%;
         overflow: hidden;
       }
+      .vote-box {
+        height: 100%;
+        width: 100%;
+        background: url("../img/bkpp-bc.png") no-repeat center bottom;
+        background-size: cover;
+      }
       .vote {
         display: flex;
         justify-content: space-between;
         padding: 30px;
         align-items: center;
-        height: 100%;
-        background: url("../img/bkpp-bc.png") no-repeat center bottom;
-        background-size: cover;
+        height: 50%;
       }
       .vote-open {
         background: #fff;
@@ -38,13 +42,25 @@
         line-height: 30px;
         padding: 0 10px;
       }
+      .vote-num {
+        display: block;
+        height: calc(50% - 20px);
+        overflow-y: auto;
+        font-size: 12px;
+        color: #fff;
+        text-align: center;
+      }
     </style>
   </head>
   <body>
-    <div class="vote">
-      <div class="vote-open" onclick="openVote()">开启轮询</div>
-      <div class="vote-close" onclick="closeVote()">关闭轮询</div>
+    <div class="vote-box">
+      <div class="vote">
+        <div class="vote-open" onclick="openVote()">开启投票</div>
+        <div class="vote-close" onclick="closeVote()">关闭投票</div>
+      </div>
+      <div class="vote-num"></div>
     </div>
+
     <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="../js/sweetAlert.min.js"></script>
     <script>
@@ -98,39 +114,66 @@
         },
       ];
       let timer = null;
+      let timerArr = [];
       // 循环ip,发送请求
       function forVote() {
+        let successNum = 0;
+        let failNum = 0;
+        let timeDate = formatDate();
+
         for (let i = 0; i < arr.length; i++) {
           let item = arr[i];
           let baseItem = { ...baseObj, ...item };
-          votePost(baseItem);
+          votePost(baseItem).then(
+            (res) => {
+              successNum++;
+            },
+            (err) => {
+              failNum++;
+            }
+          );
+        }
+        timerArr.push({ time: timeDate, suNum: successNum, faNum: failNum });
+
+        for (let j = 0; j < timerArr.length; j++) {
+          let item = timerArr[j];
+          $(".vote-num").html(
+            `<div>当前时间：${item.time}，投票成功：${item.suNum}票，投票失败：${item.faNum}票<div>`
+          );
         }
       }
 
       // fetch 发送请求 【json】
       function votePost(item) {
-        fetch("https://api.komchadluek.net/api/award/vote", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            token:
-              "VUkTC4BtyUGVt6u2UnF76BcKjXB9pu2zKEazSVudMzSDQfZsDkQS3wAjxwa7mg2MZWfRyers7N9ygv8Hb7hyPUXqpsZyqqpURkRJzzB67LYBGDB8PhVWBDS6v5mBVnVW",
-          },
-          body: JSON.stringify({
-            ...item,
-          }),
-        })
-          .then((res) => {
-            console.log(res);
-            return res.json();
+        return new Promise((resolve, reject) => {
+          fetch("https://api.komchadluek.net/api/award/vote", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              token:
+                "VUkTC4BtyUGVt6u2UnF76BcKjXB9pu2zKEazSVudMzSDQfZsDkQS3wAjxwa7mg2MZWfRyers7N9ygv8Hb7hyPUXqpsZyqqpURkRJzzB67LYBGDB8PhVWBDS6v5mBVnVW",
+            },
+            body: JSON.stringify({
+              ...item,
+            }),
           })
-          .then((json) => {
-            console.log("获取的结果", json);
-            return json;
-          })
-          .catch((err) => {
-            console.log("请求错误", err);
-          });
+            .then((res) => {
+              console.log(res);
+              return res.json();
+            })
+            .then((json) => {
+              console.log("获取的结果", json);
+              if (json == "success") {
+                resolve("success");
+              } else {
+                reject("error");
+              }
+              return json;
+            })
+            .catch((err) => {
+              console.log("请求错误", err);
+            });
+        });
       }
 
       // 开启轮询
@@ -140,6 +183,15 @@
           text: "哇哦!",
           icon: "success",
         });
+        if (timer) {
+          swal({
+            title: "已经开启投票啦，不要重复开启呦!",
+            text: "哇哦!",
+            icon: "success",
+          });
+          return;
+        }
+
         // 进入页面请求一次
         forVote();
 
@@ -157,6 +209,20 @@
           icon: "success",
         });
         timer && clearInterval(timer);
+      }
+
+      //换算当前时间
+      function formatDate() {
+        var dateTime = new Date().getTime();
+        var date = new Date(dateTime);
+        let monthT = date.getMonth() + 1;
+        return `${date.getFullYear()}-${monthT < 10 ? "0" + monthT : monthT}-${
+          date.getDate() < 10 ? "0" + date.getDate() : date.getDate()
+        } ${date.getHours() < 10 ? "0" + date.getHours() : date.getHours()}:${
+          date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()
+        }:${
+          date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds()
+        }`;
       }
     </script>
   </body>
