@@ -7,60 +7,25 @@
       content="width=device-width,initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"
     />
     <title>vote</title>
-    <style>
-      html,
-      body {
-        padding: 0;
-        margin: 0;
-        height: 100%;
-        overflow: hidden;
-      }
-      .vote-box {
-        height: 100%;
-        width: 100%;
-        background: url("../img/bkpp-bc.png") no-repeat center bottom;
-        background-size: cover;
-      }
-      .vote {
-        display: flex;
-        justify-content: space-between;
-        padding: 30px;
-        align-items: center;
-        height: 50%;
-      }
-      .vote-open {
-        background: #fff;
-        border-radius: 4px;
-        height: 30px;
-        line-height: 30px;
-        padding: 0 10px;
-      }
-      .vote-close {
-        background: #fff;
-        border-radius: 4px;
-        height: 30px;
-        line-height: 30px;
-        padding: 0 10px;
-      }
-      .vote-num {
-        display: block;
-        height: calc(50% - 30px);
-        overflow-y: auto;
-        font-size: 12px;
-        color: #fff;
-        text-align: center;
-        overflow: scroll;
-        margin-bottom: 20px;
-      }
-    </style>
+    <link rel="stylesheet" href="../css/vote.css">
+    <link rel="stylesheet" href="../css/vote-rewrite-other.css">
+    <style></style>
   </head>
   <body>
     <div class="vote-box">
-      <div class="vote">
-        <div class="vote-open" onclick="openVote()">开启投票</div>
-        <div class="vote-close" onclick="closeVote()">关闭投票</div>
+      <div class="vote-top">
+        <div class="vote">
+          <div class="vote-open" onclick="openVote()">开启投票 🥥 💙 🌺</div>
+          <div class="vote-close" onclick="closeVote()">关闭投票 🌺 💙 🥥</div>
+        </div>
+        <div class="vote-sum">
+          当前 成功投票：<span class="vote-sum-successs">0</span>
+          票，失败投票：<span class="vote-sum-over">0</span> 票
+        </div>
       </div>
+
       <div class="vote-num"></div>
+      <div class="vote-from">©2021 BKPP_CHNVotingFactory</div>
     </div>
 
     <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
@@ -73,7 +38,7 @@
         email: "1048922590@qq.com",
         // province_id:"กรุงเทพมหานคร",
         // province_id:"กระบี่",
-        province_id:"กาฬสินธุ์",
+        province_id: "กาฬสินธุ์",
         // province_id:"กาญจนบุรี",
         // province_id:"กำแพงเพชร",
         // province_id:"ขอนแก่น",
@@ -313,10 +278,10 @@
       ];
       let timer = null;
       let timerArr = [];
+      let allSuccessNum = 0; //当前成功票数
+      let alloverNum = 0; //当前成功票数
       // 循环ip,发送请求
       function forVote() {
-        let successNum = 0;
-        let failNum = 0;
         let timeDate = formatDate();
 
         for (let i = 0; i < arr.length; i++) {
@@ -329,7 +294,7 @@
         $(".vote-num").html("");
         for (let j = 0; j < timerArr.length; j++) {
           let item = timerArr[j];
-          $(".vote-num").append(`<div>当前时间：${item.time}投票</div>`);
+          $(".vote-num").append(`<div>当前时间：${item.time} 开始投票</div>`);
         }
       }
 
@@ -352,6 +317,15 @@
           })
           .then((json) => {
             console.log("获取的结果", json);
+            if (json == "success") {
+              // console.log("进来啦");
+              allSuccessNum++;
+              $(".vote-sum-successs").html(allSuccessNum);
+            } else {
+              // console.log("进来啦+++");
+              alloverNum++;
+              $(".vote-sum-over").html(alloverNum);
+            }
             return json;
           })
           .catch((err) => {
@@ -363,17 +337,19 @@
       function openVote() {
         swal({
           title: "开启投票啦!",
-          text: "哇哦!",
+          // text: "哇哦!",
           icon: "success",
         });
         if (timer) {
           swal({
             title: "已经开启投票啦，不要重复开启呦!",
-            text: "哇哦!",
+            // text: "哇哦!",
             icon: "success",
           });
           return;
         }
+
+        $(".vote-sum").css({ display: "block" });
 
         // 进入页面请求一次
         forVote();
@@ -388,7 +364,7 @@
       function closeVote() {
         swal({
           title: "投票关闭啦!",
-          text: "哇哦!",
+          // text: "哇哦!",
           icon: "success",
         });
         if (timer) {

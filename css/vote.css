@@ -1,0 +1,100 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+}
+.vote-box {
+  height: 100%;
+  width: 100%;
+  background: url("../img/bkpp-g.jpg") no-repeat center bottom;
+  background-size: cover;
+}
+.vote-top {
+  height: 20%;
+  padding: 30px;
+  padding-bottom: 40px;
+}
+.vote {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  height: 100%;
+}
+.vote-open {
+  background-image: linear-gradient(
+    to right,
+    rgba(100, 149, 237),
+    rgba(255, 182, 193)
+  );
+  border-radius: 4px;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 10px;
+  cursor: pointer;
+  overflow: hidden;
+}
+.vote-close {
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 182, 193),
+    rgba(100, 149, 237)
+  );
+  border-radius: 4px;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 10px;
+  cursor: pointer;
+  overflow: hidden;
+}
+.vote-sum {
+  font-size: 14px;
+  /* color: #FFC0CB; */
+  color: #00ffff;
+  text-align: center;
+  padding-top: 10px;
+  display: none;
+}
+.vote-num {
+  display: block;
+  height: calc(70% - 60px);
+  overflow-y: auto;
+  font-size: 12px;
+  color: #fff;
+  text-align: center;
+  overflow: scroll;
+  margin-bottom: 20px;
+}
+.vote-from {
+  color: #fff;
+  font-size: 12px;
+  text-align: center;
+}
+@media (max-width: 370px) {
+  .vote {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+@media (max-width: 370px) {
+  .vote {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+@media (min-width: 500px) {
+  .vote {
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+}
+@media (min-width: 1000px) {
+  .vote {
+    padding-left: 100px;
+    padding-right: 100px;
+  }
+  .vote-num {
+    font-size: 14px;
+  }
+}
