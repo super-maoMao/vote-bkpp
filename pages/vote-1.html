@@ -65,252 +65,30 @@
 
     <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="../js/sweetAlert.min.js"></script>
+    <script type="text/javascript" src="../js/randomGen.js"></script>
+    <script type="text/javascript" src="../js/provinces.js"></script>
     <script>
       // 声明变量
       let baseObj = {
-        fullname: "changmao",
-        phone: "0901281930",
-        email: "1048922590@qq.com",
-        // province_id:"กรุงเทพมหานคร",
-        // province_id:"กระบี่",
-        province_id:"กาฬสินธุ์",
-        // province_id:"กาญจนบุรี",
-        // province_id:"กำแพงเพชร",
-        // province_id:"ขอนแก่น",
-        // province_id:"จันทบุรี",
-        // province_id:"ฉะเชิงเทรา",
-        // province_id:"ชลบุรี",
-        // province_id:"ชัยนาท",
-        // province_id:"ชัยภูมิ",
-        // province_id:"ชุมพร",
-        // province_id:"เชียงราย",
-        // province_id:"เชียงใหม่",
-        // province_id:"ตรัง",
-        // province_id:"ตราด",
-        // province_id:"ตาก",
-        // province_id:"นครนายก",
-        // province_id:"นครปฐม",
-        // province_id:"นครพนม",
-        // province_id:"นครราชสีมา",
-        // province_id:"นครศรีธรรมราช",
-        // province_id:"นครสวรรค์",
-        // province_id:"นนทบุรี",
-        // province_id:"นราธิวาส",
-        // province_id:"น่าน",
-        // province_id:"บึงกาฬ",
-        // province_id:"บุรีรัมย์",
-        // province_id:"ปทุมธานี",
-        // province_id:"ประจวบคีรีขันธ์",
-        // province_id:"ปราจีนบุรี",
-        // province_id:"ปัตตานี",
-        // province_id:"พระนครศรีอยุธยา",
-        // province_id:"พังงา",
-        // province_id:"พัทลุง",
-        // province_id:"พิจิตร",
-        // province_id:"พิษณุโลก",
-        // province_id:"เพชรบุรี",
-        // province_id:"เพชรบูรณ์",
-        // province_id:"แพร่",
-        // province_id:"พะเยา",
-        // province_id:"ภูเก็ต",
-        // province_id:"มหาสารคาม",
-        // province_id:"มุกดาหาร",
-        // province_id:"แม่ฮ่องสอน",
-        // province_id:"ยะลา",
-        // province_id:"ยโสธร",
-        // province_id:"ร้อยเอ็ด",
-        // province_id:"ระนอง",
-        // province_id:"ระยอง",
-        // province_id:"ราชบุรี",
-        // province_id:"ลพบุรี",
-        // province_id:"ลำปาง",
-        // province_id:"ลำพูน",
-        // province_id:"เลย",
-        // province_id:"ศรีสะเกษ",
-        // province_id:"สกลนคร",
-        // province_id:"สงขลา",
-        // province_id:"สตูล",
-        // province_id:"สมุทรปราการ",
-        // province_id:"สมุทรสงคราม",
-        // province_id:"สมุทรสาคร",
-        // province_id:"สระแกว้",
-        // province_id:"สระบุรี",
-        // province_id:"สิงห์บุรี",
-        // province_id:"สุโขทัย",
-        // province_id:"สุพรรณบุรี",
-        // province_id:"สุราษฎร์ธานี",
-        // province_id:"สุรินทร์",
-        // province_id:"หนองคาย",
-        // province_id:"หนองบัวลำภู",
-        // province_id:"อ่างทอง",
-        // province_id:"อุดรธานี",
-        // province_id:"อุทัยธานี",
-        // province_id:"อุตรดิตถ์",
-        // province_id:"อุบลราชธานี",
-        // province_id:"อำนาจเจริญ",
+        fullname: stringGen("name", 8),
+        phone: phoneNumGen(),
+        email: emailGen(),
+        province_id: provinceGen(),
         vote: [
           {
             award_id: 14,
-            contender_id: 64,
+            contender_id: 64, // bk
+          },
+          {
+            award_id: 16,
+            contender_id: 76, // pp
           },
           {
             award_id: 18,
-            contender_id: 86,
+            contender_id: 86, // itsay
           },
         ],
       };
-      let arr = [
-        {
-          ip: "114.247.184.190",
-        },
-        {
-          ip: "114.247.184.191",
-        },
-        {
-          ip: "114.247.184.192",
-        },
-        {
-          ip: "114.247.184.193",
-        },
-        {
-          ip: "114.247.184.194",
-        },
-        {
-          ip: "114.247.184.195",
-        },
-        {
-          ip: "114.247.184.196",
-        },
-        {
-          ip: "114.247.184.197",
-        },
-        {
-          ip: "114.247.184.198",
-        },
-        {
-          ip: "114.247.184.199",
-        },
-        {
-          ip: "111.196.189.20",
-        },
-        {
-          ip: "111.196.189.21",
-        },
-        {
-          ip: "111.196.189.22",
-        },
-        {
-          ip: "111.196.189.23",
-        },
-        {
-          ip: "111.196.189.24",
-        },
-        {
-          ip: "111.196.189.25",
-        },
-        {
-          ip: "111.196.189.26",
-        },
-        {
-          ip: "111.196.189.27",
-        },
-        {
-          ip: "111.196.189.28",
-        },
-        {
-          ip: "111.196.189.29",
-        },
-        {
-          ip: "185.213.148.180",
-        },
-        {
-          ip: "185.213.148.181",
-        },
-        {
-          ip: "185.213.148.182",
-        },
-        {
-          ip: "185.213.148.183",
-        },
-        {
-          ip: "185.213.148.184",
-        },
-        {
-          ip: "185.213.148.185",
-        },
-        {
-          ip: "185.213.148.186",
-        },
-        {
-          ip: "185.213.148.187",
-        },
-        {
-          ip: "185.213.148.188",
-        },
-        {
-          ip: "185.213.148.189",
-        },
-        {
-          ip: "185.213.148.170",
-        },
-        {
-          ip: "185.213.148.171",
-        },
-        {
-          ip: "185.213.148.172",
-        },
-        {
-          ip: "185.213.148.173",
-        },
-        {
-          ip: "185.213.148.174",
-        },
-        {
-          ip: "185.213.148.175",
-        },
-        {
-          ip: "185.213.148.176",
-        },
-        {
-          ip: "185.213.148.177",
-        },
-        {
-          ip: "185.213.148.178",
-        },
-        {
-          ip: "185.213.148.179",
-        },
-        {
-          ip: "185.213.148.160",
-        },
-        {
-          ip: "185.213.148.161",
-        },
-        {
-          ip: "185.213.148.162",
-        },
-        {
-          ip: "185.213.148.163",
-        },
-        {
-          ip: "185.213.148.164",
-        },
-        {
-          ip: "185.213.148.165",
-        },
-        {
-          ip: "185.213.148.166",
-        },
-        {
-          ip: "185.213.148.167",
-        },
-        {
-          ip: "185.213.148.168",
-        },
-        {
-          ip: "185.213.148.169",
-        },
-      ];
       let timer = null;
       let timerArr = [];
       // 循环ip,发送请求
@@ -319,8 +97,8 @@
         let failNum = 0;
         let timeDate = formatDate();
 
-        for (let i = 0; i < arr.length; i++) {
-          let item = arr[i];
+        for (let i = 0; i < 20; i++) {
+          let item = ipGen();
           let baseItem = { ...baseObj, ...item };
           votePost(baseItem);
         }
