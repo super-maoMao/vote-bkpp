@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"
+    />
+    <title>vote</title>
+    <link rel="stylesheet" href="css/vote.css">
+    <link rel="stylesheet" href="css/vote-rewrite-other.css">
+    <style></style>
+  </head>
+  <body>
+    <div class="vote-box">
+      <div class="vote-top">
+        <div class="vote">
+          <div class="vote-open" onclick="openVote()">开启投票 🥥 💙 🌺</div>
+          <div class="vote-close" onclick="closeVote()">关闭投票 🌺 💙 🥥</div>
+        </div>
+        <div class="vote-sum">
+          当前 成功投票：<span class="vote-sum-successs">0</span>
+          票，失败投票：<span class="vote-sum-over">0</span> 票
+        </div>
+      </div>
+
+      <div class="vote-num"></div>
+      <div class="vote-from">©2021 BKPP_CHNVotingFactory</div>
+    </div>
+
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="js/sweetAlert.min.js"></script>
+    <script>
+      // 声明变量
+      let baseObj = {
+        fullname: "changmao",
+        phone: "0901281930",
+        email: "1048922590@qq.com",
+        // province_id:"กรุงเทพมหานคร",
+        // province_id:"กระบี่",
+        province_id: "กาฬสินธุ์",
+        // province_id:"กาญจนบุรี",
+        // province_id:"กำแพงเพชร",
+        // province_id:"ขอนแก่น",
+        // province_id:"จันทบุรี",
+        // province_id:"ฉะเชิงเทรา",
+        // province_id:"ชลบุรี",
+        // province_id:"ชัยนาท",
+        // province_id:"ชัยภูมิ",
+        // province_id:"ชุมพร",
+        // province_id:"เชียงราย",
+        // province_id:"เชียงใหม่",
+        // province_id:"ตรัง",
+        // province_id:"ตราด",
+        // province_id:"ตาก",
+        // province_id:"นครนายก",
+        // province_id:"นครปฐม",
+        // province_id:"นครพนม",
+        // province_id:"นครราชสีมา",
+        // province_id:"นครศรีธรรมราช",
+        // province_id:"นครสวรรค์",
+        // province_id:"นนทบุรี",
+        // province_id:"นราธิวาส",
+        // province_id:"น่าน",
+        // province_id:"บึงกาฬ",
+        // province_id:"บุรีรัมย์",
+        // province_id:"ปทุมธานี",
+        // province_id:"ประจวบคีรีขันธ์",
+        // province_id:"ปราจีนบุรี",
+        // province_id:"ปัตตานี",
+        // province_id:"พระนครศรีอยุธยา",
+        // province_id:"พังงา",
+        // province_id:"พัทลุง",
+        // province_id:"พิจิตร",
+        // province_id:"พิษณุโลก",
+        // province_id:"เพชรบุรี",
+        // province_id:"เพชรบูรณ์",
+        // province_id:"แพร่",
+        // province_id:"พะเยา",
+        // province_id:"ภูเก็ต",
+        // province_id:"มหาสารคาม",
+        // province_id:"มุกดาหาร",
+        // province_id:"แม่ฮ่องสอน",
+        // province_id:"ยะลา",
+        // province_id:"ยโสธร",
+        // province_id:"ร้อยเอ็ด",
+        // province_id:"ระนอง",
+        // province_id:"ระยอง",
+        // province_id:"ราชบุรี",
+        // province_id:"ลพบุรี",
+        // province_id:"ลำปาง",
+        // province_id:"ลำพูน",
+        // province_id:"เลย",
+        // province_id:"ศรีสะเกษ",
+        // province_id:"สกลนคร",
+        // province_id:"สงขลา",
+        // province_id:"สตูล",
+        // province_id:"สมุทรปราการ",
+        // province_id:"สมุทรสงคราม",
+        // province_id:"สมุทรสาคร",
+        // province_id:"สระแกว้",
+        // province_id:"สระบุรี",
+        // province_id:"สิงห์บุรี",
+        // province_id:"สุโขทัย",
+        // province_id:"สุพรรณบุรี",
+        // province_id:"สุราษฎร์ธานี",
+        // province_id:"สุรินทร์",
+        // province_id:"หนองคาย",
+        // province_id:"หนองบัวลำภู",
+        // province_id:"อ่างทอง",
+        // province_id:"อุดรธานี",
+        // province_id:"อุทัยธานี",
+        // province_id:"อุตรดิตถ์",
+        // province_id:"อุบลราชธานี",
+        // province_id:"อำนาจเจริญ",
+        vote: [
+          {
+            award_id: 14,
+            contender_id: 64,
+          },
+          {
+            award_id: 18,
+            contender_id: 86,
+          },
+        ],
+      };
+      let arr = [
+        {
+          ip: "114.247.184.190",
+        },
+        {
+          ip: "114.247.184.191",
+        },
+        {
+          ip: "114.247.184.192",
+        },
+        {
+          ip: "114.247.184.193",
+        },
+        {
+          ip: "114.247.184.194",
+        },
+        {
+          ip: "114.247.184.195",
+        },
+        {
+          ip: "114.247.184.196",
+        },
+        {
+          ip: "114.247.184.197",
+        },
+        {
+          ip: "114.247.184.198",
+        },
+        {
+          ip: "114.247.184.199",
+        },
+        {
+          ip: "111.196.189.20",
+        },
+        {
+          ip: "111.196.189.21",
+        },
+        {
+          ip: "111.196.189.22",
+        },
+        {
+          ip: "111.196.189.23",
+        },
+        {
+          ip: "111.196.189.24",
+        },
+        {
+          ip: "111.196.189.25",
+        },
+        {
+          ip: "111.196.189.26",
+        },
+        {
+          ip: "111.196.189.27",
+        },
+        {
+          ip: "111.196.189.28",
+        },
+        {
+          ip: "111.196.189.29",
+        },
+        {
+          ip: "185.213.148.180",
+        },
+        {
+          ip: "185.213.148.181",
+        },
+        {
+          ip: "185.213.148.182",
+        },
+        {
+          ip: "185.213.148.183",
+        },
+        {
+          ip: "185.213.148.184",
+        },
+        {
+          ip: "185.213.148.185",
+        },
+        {
+          ip: "185.213.148.186",
+        },
+        {
+          ip: "185.213.148.187",
+        },
+        {
+          ip: "185.213.148.188",
+        },
+        {
+          ip: "185.213.148.189",
+        },
+        {
+          ip: "185.213.148.170",
+        },
+        {
+          ip: "185.213.148.171",
+        },
+        {
+          ip: "185.213.148.172",
+        },
+        {
+          ip: "185.213.148.173",
+        },
+        {
+          ip: "185.213.148.174",
+        },
+        {
+          ip: "185.213.148.175",
+        },
+        {
+          ip: "185.213.148.176",
+        },
+        {
+          ip: "185.213.148.177",
+        },
+        {
+          ip: "185.213.148.178",
+        },
+        {
+          ip: "185.213.148.179",
+        },
+        {
+          ip: "185.213.148.160",
+        },
+        {
+          ip: "185.213.148.161",
+        },
+        {
+          ip: "185.213.148.162",
+        },
+        {
+          ip: "185.213.148.163",
+        },
+        {
+          ip: "185.213.148.164",
+        },
+        {
+          ip: "185.213.148.165",
+        },
+        {
+          ip: "185.213.148.166",
+        },
+        {
+          ip: "185.213.148.167",
+        },
+        {
+          ip: "185.213.148.168",
+        },
+        {
+          ip: "185.213.148.169",
+        },
+      ];
+      let timer = null;
+      let timerArr = [];
+      let allSuccessNum = 0; //当前成功票数
+      let alloverNum = 0; //当前成功票数
+      // 循环ip,发送请求
+      function forVote() {
+        let timeDate = formatDate();
+
+        for (let i = 0; i < arr.length; i++) {
+          let item = arr[i];
+          let baseItem = { ...baseObj, ...item };
+          votePost(baseItem);
+        }
+        timerArr.push({ time: timeDate });
+
+        $(".vote-num").html("");
+        for (let j = 0; j < timerArr.length; j++) {
+          let item = timerArr[j];
+          $(".vote-num").append(`<div>当前时间：${item.time} 开始投票</div>`);
+        }
+      }
+
+      // fetch 发送请求 【json】
+      function votePost(item) {
+        fetch("https://api.komchadluek.net/api/award/vote", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            token:
+              "VUkTC4BtyUGVt6u2UnF76BcKjXB9pu2zKEazSVudMzSDQfZsDkQS3wAjxwa7mg2MZWfRyers7N9ygv8Hb7hyPUXqpsZyqqpURkRJzzB67LYBGDB8PhVWBDS6v5mBVnVW",
+          },
+          body: JSON.stringify({
+            ...item,
+          }),
+        })
+          .then((res) => {
+            console.log(res);
+            return res.json();
+          })
+          .then((json) => {
+            console.log("获取的结果", json);
+            if (json == "success") {
+              // console.log("进来啦");
+              allSuccessNum++;
+              $(".vote-sum-successs").html(allSuccessNum);
+            } else {
+              // console.log("进来啦+++");
+              alloverNum++;
+              $(".vote-sum-over").html(alloverNum);
+            }
+            return json;
+          })
+          .catch((err) => {
+            console.log("请求错误", err);
+          });
+      }
+
+      // 开启轮询
+      function openVote() {
+        swal({
+          title: "开启投票啦!",
+          // text: "哇哦!",
+          icon: "success",
+        });
+        if (timer) {
+          swal({
+            title: "已经开启投票啦，不要重复开启呦!",
+            // text: "哇哦!",
+            icon: "success",
+          });
+          return;
+        }
+
+        $(".vote-sum").css({ display: "block" });
+
+        // 进入页面请求一次
+        forVote();
+
+        // 开启时间轮询，为容错尽量11分钟一次
+        timer = setInterval(() => {
+          forVote();
+        }, 1000 * 60 * 11);
+      }
+
+      //关闭轮询
+      function closeVote() {
+        swal({
+          title: "投票关闭啦!",
+          // text: "哇哦!",
+          icon: "success",
+        });
+        if (timer) {
+          clearInterval(timer);
+          timer = null;
+          timerArr = [];
+          $(".vote-num").html("");
+        }
+      }
+
+      //换算当前时间
+      function formatDate() {
+        var dateTime = new Date().getTime();
+        var date = new Date(dateTime);
+        let monthT = date.getMonth() + 1;
+        return `${date.getFullYear()}-${monthT < 10 ? "0" + monthT : monthT}-${
+          date.getDate() < 10 ? "0" + date.getDate() : date.getDate()
+        } ${date.getHours() < 10 ? "0" + date.getHours() : date.getHours()}:${
+          date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()
+        }:${
+          date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds()
+        }`;
+      }
+    </script>
+  </body>
+</html>
